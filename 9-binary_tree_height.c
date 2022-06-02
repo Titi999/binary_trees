@@ -1,28 +1,41 @@
 #include "binary_trees.h"
-size_t binary_tree_height2(const binary_tree_t *tree);
 
-size_t binary_tree_height2(const binary_tree_t *tree)
-{
-int cont1 = 0, cont2 = 0;
-
-if (tree == NULL)
-return (0);
-
-if (tree->left != NULL)
-cont1 += binary_tree_height2(tree->left);
-
-if (tree->right != NULL)
-cont2 += binary_tree_height2(tree->right);
-
-if (cont1 > cont2)
-return (cont1 + 1);
-return (cont2 + 1);
-}
+/**
+ * binary_tree_height - measures the height of a binary tree
+ * @tree: pointer to the root node of the tree
+ * Return: the size or 0 if tree is null
+ */
 
 size_t binary_tree_height(const binary_tree_t *tree)
 {
-if (tree == NULL)
-return (0);
+	int counter;
 
-return ((binary_tree_height2(tree)) - 1);
+	if (tree == NULL)
+		return (0);
+
+	counter = tree_height(tree);
+
+	return ((size_t)counter);
+}
+
+/**
+ * tree_height - count node tree height
+ * @node: node to measure
+ * Return: height
+ */
+
+int tree_height(const binary_tree_t *node)
+{
+	int lDepth, rDepth;
+
+	if (node == NULL)
+		return (-1);
+
+	lDepth = tree_height(node->left);
+	rDepth = tree_height(node->right);
+
+	if (lDepth > rDepth)
+		return (lDepth + 1);
+	else
+		return (rDepth + 1);
 }
